@@ -4,8 +4,10 @@ import Notiflix from 'notiflix';
 
 const inputDate = document.querySelector("#datetime-picker");
 const startBtn = document.querySelector('[data-start]');
+const reserBtn = document.querySelector('[data-reset]');
 const timerEl = document.querySelector(".timer");
 const fieldEl = timerEl.children;
+
 
 const fieldElArr= Array.from(fieldEl);
 
@@ -102,7 +104,9 @@ function addLeadingZero(value){
   let currentSeconds = currentDate.getTime();
 
 function fillTimer(){
-    console.log(timerId);
+    inputDate.disabled = true;
+    startBtn.disabled = true;
+    // console.log(timerId);
     const {days, hours, minutes, seconds}=elements;
 
 
@@ -118,7 +122,7 @@ function fillTimer(){
     seconds.textContent = addLeadingZero(resultDate.seconds);
 
     currentSeconds=currentSeconds+1000;
-    console.log(resultDate);
+    // console.log(resultDate);
 
     if (days.textContent==="00" && 
         hours.textContent==="00" && 
@@ -134,11 +138,14 @@ function startTimer(){
     timerId = setInterval(fillTimer, 1000);
 }
 
-
+function resetTimer(){
+    location.reload();
+}
 
 
 startBtn.disabled = true;
 flatpickr("#datetime-picker", options);
 
 startBtn.addEventListener("click", startTimer);
+reserBtn.addEventListener("click", resetTimer)
 
